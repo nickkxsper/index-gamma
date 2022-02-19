@@ -192,5 +192,5 @@ class Gamma:
 
 
 if __name__ == '__main__':
-    gtool = Gamma(filename='spx_quotedata.csv'
+    gtool = Gamma(filename='spx_quotedata.csv',
                   strike_strides = 60)
