@@ -42,13 +42,13 @@ class Gamma:
         optionsFile.close()
 
         # Get SPX Spot
-        spotLine = optionsFileData[1]
+        spotLine = optionsFileData[0]
         self.spotPrice = float(spotLine.split('Last:')[1].split(',')[0])
         self.fromStrike = 0.8 * self.spotPrice
         self.toStrike = 1.2 * self.spotPrice
 
         # Get Today's Date
-        dateLine = optionsFileData[2]
+        dateLine = optionsFileData[1]
         self.todayDate = dateLine.split('Date: ')[1].split(',')
         self.monthDay = self.todayDate[0].split(' ')
 
@@ -167,7 +167,6 @@ class Gamma:
         posStrike = self.levels[self.zeroCrossIdx+1]
 
         self.zeroGamma = posStrike - ((posStrike - negStrike) * posGamma/(posGamma-negGamma))
-        self.zeroGamma = self.zeroGamma[0]
 
 
     def plot_gamma_profile(self):
@@ -194,3 +193,7 @@ class Gamma:
 if __name__ == '__main__':
     gtool = Gamma(filename='spx_quotedata.csv',
                   strike_strides = 60)
+    gtool.calc_gamma_profile()
+    gtool.plot_gamma_profile()
+    plt.gcf()
+    plt.savefig(f'SPX Gamma Profile: {datetime.today().__str__()}')
