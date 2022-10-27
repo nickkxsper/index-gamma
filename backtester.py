@@ -188,14 +188,14 @@ if __name__ == '__main__':
                      start_date='2011-05-02',
                      end_date ='2022-02-18',
                      gex_bins = 16,
-                     transaction_cost = 5,
+                     transaction_cost = 0,
                      starting_capital = 1000000,
-                     leverage = 1.2)
+                     leverage = 3)
 
     bt.benchmark_changes = bt.data.groupby(level=0).nth(-1)[['close_ask_price']].pct_change()
     rets = [bt.evaluate_benchmark_for_day(day) for day in bt.data.index.unique()]
 
-    bt.evaluate_strategy(mr_sma=20,
-                               mr_threshold=0.001,
-                               mom_period=20)
+    bt.evaluate_strategy(mr_sma=120,
+                               mr_threshold=0.0001,
+                               mom_period=120)
 
